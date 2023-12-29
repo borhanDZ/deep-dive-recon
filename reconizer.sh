@@ -16,9 +16,9 @@ reset=`tput sgr0`
 |                                                 |
  ================== Anon-Artist ==================
 ${reset}\n"
-	echo -e "\tA. Subdomain Enumeration"
-	echo -e "\tB. Scanning for Subdomain Takeover"
-	echo -e "\tC. Port Scanning"
+	echo -e "\tA. Subdomain Enumeration                                        \tXSS.  Scanning for XSS"
+	echo -e "\tB. Scanning for Subdomain Takeover                              \tSQLi. Scanning for sql injection"
+	echo -e "\tC. Port Scanning                                                \tLFI.  Scanning for LFI/RFI"
 	echo -e "\tD. Visual Recon"
 	echo -e "\tE. Content Discovery"
 	echo -e "\tF. Parameter Fuzzing"
@@ -100,6 +100,21 @@ function corsscan {
         bash src/corsscan.sh
 }
 
+function xssscan {
+	clear
+        bash src/xssscan.sh
+}
+
+function sqliscan {
+	clear
+        bash src/sqliscan.sh
+}
+
+function lfiscan {
+	clear
+        bash src/lfiscan.sh
+}
+
 function fullscan {
 	clear
         bash src/101scan.sh
@@ -149,7 +164,16 @@ do
 	
 	M | m)
 	jsrecon ;;
-	
+ 
+ 	XSS | X | x)
+	xssscan ;;
+ 
+ 	SQLi | S | s)
+	sqliscan ;;
+
+ 	LFI | R | r)
+	lfiscan ;;
+ 
 	1)
 	fullscan ;;
 	
