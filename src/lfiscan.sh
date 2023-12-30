@@ -17,7 +17,7 @@ else
   mkdir ~/reconizer
 fi
 
-if [ -d ~/reconizer/$DOM/lfi_scan/]
+if [ -d ~/reconizer/$DOM/lfi_scan]
 then
   echo " "
 else
