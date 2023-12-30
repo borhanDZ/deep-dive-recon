@@ -17,19 +17,13 @@ else
   mkdir ~/reconizer
 fi
 
-if [ -d ~/reconizer/$DOM/vulnerabilities]
+if [ -d ~/reconizer/$DOM/sqli_scan]
 then
   echo " "
 else
-  mkdir ~/reconizer/$DOM/vulnerabilities
+  mkdir ~/reconizer/$DOM/sqli_scan
 fi
 
-if [ -d ~/reconizer/$DOM/vulnerabilities/sqli]
-then
-  echo " "
-else
-  mkdir ~/reconizer/$DOM/vulnerabilities/sqli
-fi
 
 echo "${red}
  =================================================
@@ -50,12 +44,12 @@ echo " "
 if [ -f ~/usr/bin/sqlmap ]
 then
 echo -e ${CG}"\n[+] Searching For SQL Injection:- "
-sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/vulnerabilities/sqli/sqlmap.txt
+sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/sqli_scan/sqlmap.txt
 else
   echo "${blue} [+] Installing sqli ${reset}"
   sudo apt install sqlmap
 echo -e ${CG}"\n[+] Searching For SQL Injection:- "
-sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/vulnerabilities/sqli/sqlmap.txt
+sqlmap -m $DOM/GF_Pattern/sql.txt --batch --random-agent --level 1 | tee $DOM/sqli_scan/sqlmap.txt
 fi
 
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
