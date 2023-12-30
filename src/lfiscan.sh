@@ -17,18 +17,11 @@ else
   mkdir ~/reconizer
 fi
 
-if [ -d ~/reconizer/$DOM/vulnerabilities]
+if [ -d ~/reconizer/$DOM/lfi_scan/]
 then
   echo " "
 else
-  mkdir ~/reconizer/$DOM/vulnerabilities
-fi
-
-if [ -d ~/reconizer/$DOM/vulnerabilities/lfi]
-then
-  echo " "
-else
-  mkdir ~/reconizer/$DOM/vulnerabilities/lfi
+  mkdir ~/reconizer/$DOM/lfi_scan
 fi
 
 echo "${red}
@@ -54,12 +47,12 @@ cat dotdotpwn.txt | head -n 120 > ~/reconizer/$DOM/tools/lfipayloads.txt
 if [ -f ~/go/bin/ffuz ]
 then
 echo -e ${CG}"\n[+] Searching For LFI Injection:- "
-cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/vulnerabilities/LFI/lfi.txt -t 50 -c  ; done
+cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/lfi_scan/lfi.txt -t 50 -c  ; done
 else
   echo "${blue} [+] Installing lfi ${reset}"
   go install github.com/ffuf/ffuf/v2@latest
 echo -e ${CG}"\n[+] Searching For LFI Injection:- "
-cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/vulnerabilities/LFI/lfi.txt -t 50 -c  ; done
+cat ~/reconizer/$DOM/GF_Patterns/lfi.txt | qsreplace FUZZ | while read url ; do ffuf -u $url -mr "root:x" -w ~/reconizer/$DOM/tools/lfipayloads.txt -of csv -o ~/reconizer/$DOM/lfi_scan/lfi.txt -t 50 -c  ; done
 fi
 
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
