@@ -52,27 +52,18 @@ else
   echo "${blue} [+] Installing xss ${reset}"
    go get -u github.com/tomnomnom/hacks/kxss
   echo "${magenta} [+] Running xss ${reset}"
-  xss -update-templates
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/cves/ -c 200 -o ~/reconizer/$DOM/xss/cves_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/files/ -c 200 -o ~/reconizer/$DOM/xss/files_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/vulnerabilities/ -c 200 -o ~/reconizer/$DOM/xss/vulnerabilities_results.txt
+
 fi
 
 if [ -f ~/go/bin/dalfox ]
 then
   echo "${magenta} [+] Running dalfox ${reset}"
-  xss -update-templates
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/cves/ -c 200 -o ~/reconizer/$DOM/xss/cves_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/files/ -c 200 -o ~/reconizer/$DOM/xss/files_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/vulnerabilities/ -c 200 -o ~/reconizer/$DOM/xss/vulnerabilities_results.txt
+
 else
   echo "${blue} [+] Installing xss ${reset}"
   go get -v github.com/hahwul/dalfox/v2
   echo "${magenta} [+] Running xss ${reset}"
-  xss -update-templates
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/cves/ -c 200 -o ~/reconizer/$DOM/xss/cves_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/files/ -c 200 -o ~/reconizer/$DOM/xss/files_results.txt
-  xss -l ~/reconizer/$DOM/Subdomains/all-alive-subs.txt -t ~/xss-templates/vulnerabilities/ -c 200 -o ~/reconizer/$DOM/xss/vulnerabilities_results.txt
+
 fi
 
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
