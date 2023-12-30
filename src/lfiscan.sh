@@ -47,7 +47,7 @@ echo " "
 #lfi
 echo "${yellow} ---------------------------------- xxxxxxxx ---------------------------------- ${reset}"
 echo " "
-if if [[ ! -f ~/reconizer/$DOM/tools/dotdotpwn.txt ]]
+if [[ ! -f ~/reconizer/$DOM/tools/dotdotpwn.txt ]]
 then
 wget https://raw.githubusercontent.com/swisskyrepo/PayloadsAllTheThings/master/Directory%20Traversal/Intruder/dotdotpwn.txt 
 cat dotdotpwn.txt | head -n 120 > ~/reconizer/$DOM/tools/lfipayloads.txt
