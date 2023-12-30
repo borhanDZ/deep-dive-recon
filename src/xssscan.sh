@@ -17,7 +17,7 @@ else
   mkdir ~/reconizer
 fi
 
-if [ -d ~/reconizer/$DOM/xss_scan/]
+if [ -d ~/reconizer/$DOM/xss_scan]
 then
   echo " "
 else
